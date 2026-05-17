@@ -135,10 +135,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-CORS_ORIGIN_WHITELIST = (
-    '0.0.0.0:4000',
-    'localhost:4000',
-)
+CORS_ORIGIN_WHITELIST = os.environ.get(
+    "CORS_ALLOWED_ORIGINS",
+    "localhost:8282,127.0.0.1:8282"
+).split(",")
 
 # Tell Django about the custom `User` model we created. The string
 # `authentication.User` tells Django we are referring to the `User` model in
