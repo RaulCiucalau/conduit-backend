@@ -18,8 +18,15 @@ RUN pip install --upgrade pip \
 # Copy application source code
 COPY . .
 
+# Move installed packages to the system site-packages
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 # Expose backend container port
 EXPOSE 8000
+
+# Set entrypoint to run the application
+ENTRYPOINT ["/entrypoint.sh"]
 
 # Start WSGI application with Gunicorn
 CMD ["gunicorn", "conduit.wsgi:application", "--bind", "0.0.0.0:8000"]
