@@ -11,9 +11,9 @@ WORKDIR /app
 # Copy dependency file first for better Docker cache usage
 COPY requirements.txt .
 
-# Install dependencies into a temporary install directory
+# Install Python dependencies directly into the image
 RUN pip install --upgrade pip \
-    && pip install --prefix=/install -r requirements.txt
+    && pip install --no-cache-dir -r requirements.txt
 
 # Copy application source code
 COPY . .
